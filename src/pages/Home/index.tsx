@@ -1,6 +1,7 @@
 import { Form } from '@unform/web';
 import React, { useCallback, useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import CityCard from '../../components/CityCard';
 
 import Header from '../../components/Header';
@@ -10,8 +11,11 @@ import api from '../../config/api';
 export interface ICity {
   id: number;
   name: string;
+  dt: number;
   sys: {
     country: string;
+    sunrise: number;
+    sunset: number;
   };
   main: {
     temp: number;
@@ -26,13 +30,16 @@ export interface ICity {
       main: string;
     },
   ];
+  timezone: number;
 }
 
 const Home: React.FC = () => {
   const [cities, setCities] = useState<ICity[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = useCallback(async (data) => {
     try {
+      setLoading(true);
       const response = await api.get('find', {
         params: {
           q: data.search,
@@ -46,12 +53,14 @@ const Home: React.FC = () => {
       }
     } catch (err) {
       setCities([]);
+    } finally {
+      setLoading(false);
     }
   }, []);
 
   return (
     <>
-      <Header>
+      <Header additionalClasses="pb-32 pt-20">
         <span className="text-lg text-gray-50 mb-4">WEATHER IN YOUR CITY</span>
         <Form onSubmit={handleSubmit}>
           <Input
@@ -59,6 +68,7 @@ const Home: React.FC = () => {
             name="search"
             placeholder="Your city name"
             icon={FaSearch}
+            title="Type a name and hit 'enter' to search"
           />
         </Form>
       </Header>
@@ -66,14 +76,24 @@ const Home: React.FC = () => {
       {cities.length && (
         <div className="container max-w-screen-sm relative -top-16">
           {cities.map((city) => (
-            <CityCard key={city.id} city={city} />
+            <Link key={city.id} to={`details/${city.id}`}>
+              <CityCard city={city} />
+            </Link>
           ))}
         </div>
       )}
 
-      {!cities.length && (
+      {!loading && !cities.length && (
         <div className="container">
-          <h3 className="text-center">No results available.</h3>
+          <h6 className="text-center text-2xl font-bold mt-5">
+            No results available.
+          </h6>
+        </div>
+      )}
+
+      {loading && !cities.length && (
+        <div className="container max-w-screen-md text-center">
+          <h6 className="text-2xl mt-5">Loading</h6>
         </div>
       )}
     </>

@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { HTMLAttributes } from 'react';
 
-const Header: React.FC = ({ children }) => {
+interface Props extends HTMLAttributes<HTMLHeadElement> {
+  additionalClasses?: string;
+}
+
+const Header: React.FC<Props> = ({ additionalClasses, children }) => {
   return (
-    <header className="w-screen bg-blue-450 pb-32 pt-20 flex flex-col items-center">
+    <header
+      className={
+        'w-screen bg-blue-450 flex flex-col items-center ' + additionalClasses
+      }
+    >
       {children}
     </header>
   );

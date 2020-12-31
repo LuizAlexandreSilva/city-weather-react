@@ -7,11 +7,9 @@ interface Props extends HTMLAttributes<HTMLElement> {
 
 const CityCard: React.FC<Props> = ({ city, ...rest }) => {
   return (
-    <div className="flex flex-1 h-44 bg-white rounded shadow-md p-4 justify-between mb-4 cursor-pointer">
-      <div className="bg-gray-150 h-full w-52 flex justify-center items-center">
-        <span className="text-5xl text-gray-650 rounded">
-          {city.main.temp}°C
-        </span>
+    <div className="flex flex-1 h-44 bg-white rounded shadow-md p-4 justify-between mb-4">
+      <div className="bg-gray-150 h-full w-52 flex justify-center items-center rounded">
+        <span className="text-5xl text-gray-650">{city.main.temp}°C</span>
       </div>
       <div className="flex flex-col justify-center">
         <div className="flex items-center">
