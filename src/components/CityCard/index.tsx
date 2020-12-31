@@ -5,7 +5,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
   city: ICity;
 }
 
-const CityCard: React.FC<Props> = ({ city, ...rest }) => {
+const CityCard: React.FC<Props> = ({ city }) => {
   return (
     <div className="flex flex-1 h-44 bg-white rounded shadow-md p-4 justify-between mb-4">
       <div className="bg-gray-150 h-full w-52 flex justify-center items-center rounded">
