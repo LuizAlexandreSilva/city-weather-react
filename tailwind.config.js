@@ -12,7 +12,17 @@ module.exports = {
         blue: {
           450: '#39a3db',
         },
+        gray: {
+          150: '#f0f0f0',
+          650: '#3c3c3c',
+        },
+        red: {
+          850: '#b30000',
+        },
       },
+    },
+    container: {
+      center: true,
     },
   },
   variants: {

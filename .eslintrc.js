@@ -21,6 +21,7 @@ module.exports = {
   plugins: ['react', 'react-hooks', '@typescript-eslint', 'prettier'],
   rules: {
     'no-use-before-define': 'off',
+    camelcase: 'off',
     '@typescript-eslint/no-use-before-define': ['error'],
     'react/prop-types': 'off',
     'prettier/prettier': 'error',
